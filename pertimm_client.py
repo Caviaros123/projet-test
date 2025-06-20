@@ -7,14 +7,17 @@ REGISTER_URL = f"{BASE_URL}/auth/register/"
 LOGIN_URL = f"{BASE_URL}/auth/login/"
 APPLICATION_URL = f"{BASE_URL}/job-application-request/"
 
-USERNAME = "princethierry2021+10@gmail.com"
-PASSWORD = "11221122"
-EMAIL = "princethierry2021+10@gmail.com"
-FIRST_NAME = "Princethierry"
-LAST_NAME = "Makwati"
+USERNAME = "princethierry2021+test@gmail.com"
+PASSWORD = "********"
+EMAIL = "princethierry2021+test@gmail.com"
+FIRST_NAME = "Test"
+LAST_NAME = "Test"
 
 async def runApp():
     async with httpx.AsyncClient() as client:
+        # single time registration only
+        await client.post(REGISTER_URL, json={"email": USERNAME, "password": PASSWORD})
+        
         response = await client.post(LOGIN_URL, json={"email": USERNAME, "password": PASSWORD})
 
         if response.status_code != 200:
